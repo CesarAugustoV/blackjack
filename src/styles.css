@@ -1,0 +1,27 @@
+html, body{
+    margin: 0px;
+    background-color: #018305;
+}
+
+.webpack-logo{
+    width: 20%;
+}
+
+.titulo{
+    text-align: center;
+    background-color: black;
+    color:white;
+    padding:20px;
+    font-size: 25px;
+}
+
+.carta{
+    width: 150px;
+    position:relative;
+    left: 150px;
+    margin-left: -75px;
+}
+
+#jugador-cartas, #computadora-cartas{
+    height: 220px;
+}
