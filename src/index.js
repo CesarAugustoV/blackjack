@@ -28,7 +28,6 @@ const crearDeck = () => {
    }
 
    deck= _.shuffle(deck);
-   console.log(deck);
 
    return deck;
 }
@@ -48,4 +47,16 @@ const pedirCarta = ()=>{
    
 };
 
-//pedirCarta();
+//Esta funcion retorna el valor de la carta.
+
+const valorCarta = (carta)=>{
+
+   const valor = carta.substring(0, carta.length - 1);
+
+   return (isNaN ( valor ))  ? //si valor es un numero retorna false.
+                     ( valor === 'A' ) ? 11 : 10 //si puntos es exactamente igual a A retorna 11 y sino puntos es igual a 10;
+                  : 
+                     valor * 1; //convertimos el string en numero
+};
+
+
