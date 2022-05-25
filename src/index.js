@@ -19,8 +19,12 @@ let puntosJugador = 0,
 
 //Referencias HTML
 const btnPedir = document.querySelector('#btnPedir');
+const btnNuevo = document.querySelector('#btnNuevo');
+const btnDetener = document.querySelector('#btnDetener');
 const puntosHTML = document.querySelectorAll('small');
 const divCartasJugador = document.querySelector('#jugador-cartas');
+const divCartasComputadora = document.querySelector('#computadora-cartas');
+const cartas = document.querySelector('.carta');
 
 
 //esta funcion crea la baraja
@@ -67,6 +71,32 @@ const valorCarta = (carta)=>{
                      valor * 1; //convertimos el string en numero
 };
 
+//turno computadora
+const turnoComputadora = (puntosMinimos)=>{
+      
+   do{
+      const carta = pedirCarta();
+
+      puntosComputadora += valorCarta(carta);
+      puntosHTML[1].innerText=puntosComputadora;
+      
+      const imgCarta = document.createElement('img');
+      imgCarta.src=`assets/img/cartas/${carta}.png`;
+      imgCarta.classList.add('carta');
+      divCartasComputadora.append(imgCarta);
+   
+      if(puntosMinimos>21){
+         break;
+      }
+
+
+   }while((puntosComputadora<puntosMinimos)&&(puntosMinimos<=21));
+
+}
+
+
+
+
 // Eventos
 
 btnPedir.addEventListener('click', ()=>{
@@ -83,12 +113,40 @@ btnPedir.addEventListener('click', ()=>{
    if(puntosJugador > 21){
       console.warn("Perdiste!");
       btnPedir.disabled=true;
+      btnDetener.disabled=true;
+      turnoComputadora(puntosJugador);
+
    } else if (puntosJugador===21){
       console.warn('21, genial');
       btnPedir.disabled=true;
+      btnDetener.disabled=true;
+      turnoComputadora(puntosJugador);
    }
-  
 
-   
 });
 
+//boton detener
+
+btnDetener.addEventListener('click', ()=>{
+   btnDetener.disabled=true;
+   btnPedir.disabled=true;
+
+   turnoComputadora(puntosJugador);
+});
+
+
+//boton nuevo
+
+btnNuevo.addEventListener('click', ()=>{
+   deck=[];
+   puntosComputadora=0;
+   puntosJugador=0;
+   console.log(puntosComputadora);
+   puntosHTML[0].innerText=puntosJugador;
+   puntosHTML[1].innerText=puntosComputadora;
+   
+   
+   cartas.remove();
+   crearDeck();
+
+});
