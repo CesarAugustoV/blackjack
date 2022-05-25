@@ -12,6 +12,16 @@ import _, { map } from 'underscore';//importaciond de shufle para barajear el ma
 let deck    = [];
 const tipos = ['C', 'D', 'H', 'S'];
 const especiales = ['A','J','Q','K'];
+let puntosJugador = 0,
+    puntosComputadora = 0;
+
+
+
+//Referencias HTML
+const btnPedir = document.querySelector('#btnPedir');
+const puntosHTML = document.querySelectorAll('small');
+const divCartasJugador = document.querySelector('#jugador-cartas');
+
 
 //esta funcion crea la baraja
 const crearDeck = () => {
@@ -41,8 +51,6 @@ const pedirCarta = ()=>{
    }
 
    const carta = deck.pop();
-   console.log(carta);
-   console.log(deck);
    return carta;
    
 };
@@ -59,4 +67,28 @@ const valorCarta = (carta)=>{
                      valor * 1; //convertimos el string en numero
 };
 
+// Eventos
+
+btnPedir.addEventListener('click', ()=>{
+   const carta = pedirCarta();
+
+   puntosJugador += valorCarta(carta);
+   puntosHTML[0].innerText=puntosJugador;
+   
+   const imgCarta = document.createElement('img');
+   imgCarta.src=`assets/img/cartas/${carta}.png`;
+   imgCarta.classList.add('carta');
+   divCartasJugador.append(imgCarta);
+
+   if(puntosJugador > 21){
+      console.warn("Perdiste!");
+      btnPedir.disabled=true;
+   } else if (puntosJugador===21){
+      console.warn('21, genial');
+      btnPedir.disabled=true;
+   }
+  
+
+   
+});
 
