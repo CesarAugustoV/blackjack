@@ -154,6 +154,7 @@ btnDetener.addEventListener('click', ()=>{
 //boton nuevo
 
 btnNuevo.addEventListener('click', ()=>{
+   
    crearDeck();
    puntosComputadora=0;
    puntosJugador=0;
@@ -163,8 +164,5 @@ btnNuevo.addEventListener('click', ()=>{
    btnDetener.disabled=false;
    divCartasComputadora.innerHTML='';
    divCartasJugador.innerHTML='';
-   
-   
-   
 
 });
