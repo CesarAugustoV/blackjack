@@ -24,11 +24,14 @@ const btnDetener = document.querySelector('#btnDetener');
 const puntosHTML = document.querySelectorAll('small');
 const divCartasJugador = document.querySelector('#jugador-cartas');
 const divCartasComputadora = document.querySelector('#computadora-cartas');
-const cartas = document.querySelector('.carta');
+
 
 
 //esta funcion crea la baraja
 const crearDeck = () => {
+
+   deck=[];
+   
     for (let i = 2; i<=10; i++){
          for(let tipo of tipos){
             deck.push(i+tipo);
@@ -42,8 +45,9 @@ const crearDeck = () => {
    }
 
    deck= _.shuffle(deck);
-
+   console.log(deck);
    return deck;
+   
 }
 
 crearDeck();
@@ -55,6 +59,7 @@ const pedirCarta = ()=>{
    }
 
    const carta = deck.pop();
+   console.log(deck);
    return carta;
    
 };
@@ -92,6 +97,15 @@ const turnoComputadora = (puntosMinimos)=>{
 
    }while((puntosComputadora<puntosMinimos)&&(puntosMinimos<=21));
 
+   setTimeout(() => {
+      if (puntosComputadora===puntosMinimos){
+         alert('Nadie gana');
+      }else if (puntosComputadora>21){
+         alert('Ganaste!');
+      }else if (puntosMinimos<21 && puntosComputadora>puntosJugador){
+         alert("Perdiste");
+      }
+   }, 15);
 }
 
 
@@ -99,6 +113,7 @@ const turnoComputadora = (puntosMinimos)=>{
 
 // Eventos
 
+//boton pedir
 btnPedir.addEventListener('click', ()=>{
    const carta = pedirCarta();
 
@@ -115,6 +130,7 @@ btnPedir.addEventListener('click', ()=>{
       btnPedir.disabled=true;
       btnDetener.disabled=true;
       turnoComputadora(puntosJugador);
+      console.log('Perdiste');
 
    } else if (puntosJugador===21){
       console.warn('21, genial');
@@ -138,15 +154,17 @@ btnDetener.addEventListener('click', ()=>{
 //boton nuevo
 
 btnNuevo.addEventListener('click', ()=>{
-   deck=[];
+   crearDeck();
    puntosComputadora=0;
    puntosJugador=0;
-   console.log(puntosComputadora);
    puntosHTML[0].innerText=puntosJugador;
    puntosHTML[1].innerText=puntosComputadora;
+   btnPedir.disabled=false;
+   btnDetener.disabled=false;
+   divCartasComputadora.innerHTML='';
+   divCartasJugador.innerHTML='';
    
    
-   cartas.remove();
-   crearDeck();
+   
 
 });
