@@ -9,21 +9,22 @@ import _, { map } from 'underscore';//importaciond de shufle para barajear el ma
 */ 
 
 
-let deck    = [];
-const tipos = ['C', 'D', 'H', 'S'];
-const especiales = ['A','J','Q','K'];
-let puntosJugador = 0,
-    puntosComputadora = 0;
+let      deck    = [],
+         puntosJugador = 0,
+         puntosComputadora = 0;
+const    tipos = ['C', 'D', 'H', 'S'],
+         especiales = ['A','J','Q','K'];
+
 
 
 
 //Referencias HTML
-const btnPedir = document.querySelector('#btnPedir');
-const btnNuevo = document.querySelector('#btnNuevo');
-const btnDetener = document.querySelector('#btnDetener');
-const puntosHTML = document.querySelectorAll('small');
-const divCartasJugador = document.querySelector('#jugador-cartas');
-const divCartasComputadora = document.querySelector('#computadora-cartas');
+const    btnPedir = document.querySelector('#btnPedir'),
+         btnNuevo = document.querySelector('#btnNuevo'),
+         btnDetener = document.querySelector('#btnDetener'),
+         puntosHTML = document.querySelectorAll('small'),
+         divCartasJugador = document.querySelector('#jugador-cartas'),
+         divCartasComputadora = document.querySelector('#computadora-cartas');
 
 
 
@@ -104,6 +105,8 @@ const turnoComputadora = (puntosMinimos)=>{
          alert('Ganaste!');
       }else if (puntosMinimos<21 && puntosComputadora>puntosJugador){
          alert("Perdiste");
+      }else if (puntosMinimos>21){
+         alert('Perdiste');
       }
    }, 15);
 }
