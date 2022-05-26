@@ -112,7 +112,7 @@ const turnoComputadora = (puntosMinimos)=>{
       }else if (puntosMinimos>21){
          alert(usuario +  ' Perdiste');
       }
-   }, 15);
+   }, 60);
 }
 
 
