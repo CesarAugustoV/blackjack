@@ -104,13 +104,13 @@ const turnoComputadora = (puntosMinimos)=>{
 
    setTimeout(() => {
       if (puntosComputadora===puntosMinimos){
-         alert(usuario +  ' Nadie gana');
+         alert('Nadie gana, intenta de nuevo.');
       }else if (puntosComputadora>21){
-         alert(usuario +  ' Ganaste!');
+         alert('Felicidades ' + usuario +  ' Ganaste!');
       }else if (puntosMinimos<21 && puntosComputadora>puntosJugador){
-         alert(usuario +  ' Perdiste');
+         alert('Computadora gana');
       }else if (puntosMinimos>21){
-         alert(usuario +  ' Perdiste');
+         alert('Computadora gana');
       }
    }, 60);
 }
