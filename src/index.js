@@ -8,6 +8,7 @@ import _, { map } from 'underscore';//importaciond de shufle para barajear el ma
  2S = two of Spades
 */ 
 
+const usuario = window.prompt("¿Cual es tu nombre?");
 
 let      deck    = [],
          puntosJugador = 0,
@@ -19,13 +20,18 @@ const    tipos = ['C', 'D', 'H', 'S'],
 
 
 //Referencias HTML
-const    btnPedir = document.querySelector('#btnPedir'),
+const    nombreUsuario = document.querySelector('#usuario'),
+         btnPedir = document.querySelector('#btnPedir'),
          btnNuevo = document.querySelector('#btnNuevo'),
          btnDetener = document.querySelector('#btnDetener'),
          puntosHTML = document.querySelectorAll('small'),
          divCartasJugador = document.querySelector('#jugador-cartas'),
          divCartasComputadora = document.querySelector('#computadora-cartas');
 
+
+//añadir nombre de usuario
+
+nombreUsuario.innerText=usuario;
 
 
 //esta funcion crea la baraja
@@ -46,7 +52,6 @@ const crearDeck = () => {
    }
 
    deck= _.shuffle(deck);
-   console.log(deck);
    return deck;
    
 }
@@ -60,7 +65,6 @@ const pedirCarta = ()=>{
    }
 
    const carta = deck.pop();
-   console.log(deck);
    return carta;
    
 };
@@ -100,13 +104,13 @@ const turnoComputadora = (puntosMinimos)=>{
 
    setTimeout(() => {
       if (puntosComputadora===puntosMinimos){
-         alert('Nadie gana');
+         alert(usuario +  ' Nadie gana');
       }else if (puntosComputadora>21){
-         alert('Ganaste!');
+         alert(usuario +  ' Ganaste!');
       }else if (puntosMinimos<21 && puntosComputadora>puntosJugador){
-         alert("Perdiste");
+         alert(usuario +  ' Perdiste');
       }else if (puntosMinimos>21){
-         alert('Perdiste');
+         alert(usuario +  ' Perdiste');
       }
    }, 15);
 }

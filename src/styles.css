@@ -24,4 +24,5 @@ html, body{
 
 #jugador-cartas, #computadora-cartas{
     height: 220px;
+    position: block;
 }
