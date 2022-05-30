@@ -8,6 +8,8 @@ import _, { map } from 'underscore';//importaciond de shufle para barajear el ma
  2S = two of Spades
 */ 
 
+const miModulo = (()=>{
+   'use strict'
 
 let      deck    = [];
 
@@ -36,7 +38,7 @@ const inicializarJuego = (numJugadores = 2)=>{
    divCartasJugadores.forEach(elem=> elem.innerHTML='');
    btnPedir.disabled=false;
    btnDetener.disabled=false;
-
+   
 };
 
 //esta funcion crea la baraja
@@ -102,12 +104,11 @@ const crearCarta = (carta, turno)=>{
 //determinar ganador
 const determinarGanador =()=>{
    const [puntosMinimos, puntosComputadora] = puntosJugadores;
-
    setTimeout(() => {
       if (puntosComputadora===puntosMinimos){
          alert('Nadie gana, intenta de nuevo.');
       }else if (puntosComputadora>21){
-         alert('Felicidades ' + usuario +  ' Ganaste!');
+         alert('Felicidades Ganaste!');
       }else if (puntosMinimos<21 && puntosComputadora>puntosJugadores[0]){
          alert('Computadora gana');
       }else if (puntosMinimos>21){
@@ -137,22 +138,21 @@ const turnoComputadora = (puntosMinimos)=>{
 //boton pedir
 btnPedir.addEventListener('click', ()=>{
    const carta = pedirCarta();
-   const puntosJugador = acumularPuntos(carta, 0);
+   puntosJugadores[0] = acumularPuntos(carta, 0);
    crearCarta(carta, 0);
-   
 
-   if(puntosJugador > 21){
+   if(puntosJugadores[0] > 21){
       console.warn("Perdiste!");
       btnPedir.disabled=true;
       btnDetener.disabled=true;
-      turnoComputadora(puntosJugador);
+      turnoComputadora(puntosJugadores[0]);
       console.log('Perdiste');
 
-   } else if (puntosJugador===21){
+   } else if (puntosJugadores[0]===21){
       console.warn('21, genial');
       btnPedir.disabled=true;
       btnDetener.disabled=true;
-      turnoComputadora(puntosJugador);
+      turnoComputadora(puntosJugadores[0]);
    }
 
 });
@@ -176,3 +176,6 @@ btnNuevo.addEventListener('click', ()=>{
    
 
 });
+
+
+})();
