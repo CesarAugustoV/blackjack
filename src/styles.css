@@ -1,6 +1,8 @@
 html, body{
     margin: 0px;
     background-color: #018305;
+    width: 100%;
+    height: 100%;
 }
 
 .webpack-logo{

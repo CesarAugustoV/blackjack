@@ -33,7 +33,7 @@ const inicializarJuego = (numJugadores = 2)=>{
    puntosJugadores=[];
    for(let i = 0;i<numJugadores; i++){
       puntosJugadores.push(0);
-   }
+   };
    puntosHTML.forEach(elem => elem.innerText=0);
    divCartasJugadores.forEach(elem=> elem.innerHTML='');
    btnPedir.disabled=false;
@@ -118,6 +118,30 @@ const determinarGanador =()=>{
 
 };
 
+//turno Jugadores
+
+const turnoJugador1 = ()=>{
+
+   const carta = pedirCarta();
+   puntosJugadores[0] = acumularPuntos(carta, 0);
+   crearCarta(carta, 0);
+
+   if(puntosJugadores[0] > 21){
+      console.warn("Jugador 1 pierde!");
+      btnPedir.disabled=true;
+      btnDetener.disabled=true;
+      turnoComputadora(puntosJugadores[0]);
+      console.log('Perdiste');
+
+   } else if (puntosJugadores[0]===21){
+      console.warn('21, genial');
+      btnPedir.disabled=true;
+      btnDetener.disabled=true;
+      turnoComputadora(puntosJugadores[0]);
+   }
+
+};
+
 //turno computadora
 const turnoComputadora = (puntosMinimos)=>{
       let puntosComputadora=0;
@@ -131,29 +155,13 @@ const turnoComputadora = (puntosMinimos)=>{
 
    determinarGanador();
   
-}
-
+};
 // Eventos
 
 //boton pedir
 btnPedir.addEventListener('click', ()=>{
-   const carta = pedirCarta();
-   puntosJugadores[0] = acumularPuntos(carta, 0);
-   crearCarta(carta, 0);
-
-   if(puntosJugadores[0] > 21){
-      console.warn("Perdiste!");
-      btnPedir.disabled=true;
-      btnDetener.disabled=true;
-      turnoComputadora(puntosJugadores[0]);
-      console.log('Perdiste');
-
-   } else if (puntosJugadores[0]===21){
-      console.warn('21, genial');
-      btnPedir.disabled=true;
-      btnDetener.disabled=true;
-      turnoComputadora(puntosJugadores[0]);
-   }
+   
+   turnoJugador1();
 
 });
 
@@ -176,6 +184,7 @@ btnNuevo.addEventListener('click', ()=>{
    
 
 });
+
 
 
 })();
