@@ -180,17 +180,21 @@ const crearCarta = (carta, turno)=>{
 };
 
 //determinar ganador
-const determinarGanador =()=>{
-   const [puntosMinimos, puntosComputadora] = puntosJugadores;
+const determinarGanador =(puntosMinimos, puntosComputadora)=>{
+   btnPedir.disabled=true;
+   btnDetener.disabled=true;
+   console.log(puntosMinimos, puntosComputadora);
    setTimeout(() => {
       if (puntosComputadora===puntosMinimos){
          alert('Nadie gana, intenta de nuevo.');
       }else if (puntosComputadora>21){
          alert('Felicidades Ganaste!');
-      }else if (puntosMinimos<21 && puntosComputadora>puntosJugadores[0]){
+      }else if (puntosComputadora===21){
          alert('Computadora gana');
       }else if (puntosMinimos>21){
          alert('Computadora gana');
+      }else if(puntosComputadora<21 && puntosComputadora>puntosMinimos ){
+         alert('computadora gana');
       }
    }, 60);
 
@@ -201,7 +205,7 @@ const determinarTurno = (elturno)=>{
    let numeroJugadores = puntosJugadores.length;
    let diferencia = numeroJugadores-elturno;
    if(diferencia===1){
-      turnoComputadora(21);
+      turnoComputadora();
    }
 };
 
@@ -218,7 +222,7 @@ const turnoJugador = ( turno, puntosJugadores )=>{
       alert('Perdiste, ahora presiona detener para que el siguiente jugador pueda intentarlo.');
       turnos ++;
       determinarTurno(turnos);
-      console.log(turnos);
+      
       
    }else if (puntosJugadores[turno]===21){
       btnPedir.disabled=true;
@@ -231,20 +235,23 @@ const turnoJugador = ( turno, puntosJugadores )=>{
 
 
 //turno computadora
-const turnoComputadora = (puntosMinimos)=>{
+const turnoComputadora = ()=>{
    
-   console.log(puntosMinimos);
+   //buscamos el puntaje mas cerca de 21
+   const puntosMinimos = puntosJugadores.find(element => element < 21);
+   
    let puntosComputadora=0;
 
     do{
        const carta = pedirCarta();
        puntosComputadora = acumularPuntos(carta, puntosJugadores.length-1);
        crearCarta(carta, puntosJugadores.length - 1);
-       console.log(puntosJugadores);
+       
 
     }while((puntosComputadora<puntosMinimos)&&(puntosMinimos<=21));
 
-    determinarGanador();
+    determinarGanador(puntosMinimos, puntosComputadora);
+    
   
 };
 
@@ -281,5 +288,6 @@ btnNuevo.addEventListener('click', ()=>{
    inicializarJuego(numJugadores);
    
 });
+
 
 })();
